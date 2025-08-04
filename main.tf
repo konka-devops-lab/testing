@@ -28,6 +28,7 @@ resource "aws_instance" "example" {
   key_name               = "siva"
   vpc_security_group_ids = ["sg-0247c6b65a012e5f2"]
   subnet_id              = "subnet-0f91105ac5e421ff1"
+  iam_instance_profile = "test-prometheus"
   tags                   = { Name = "testing" }
 
 }
@@ -55,4 +56,8 @@ resource "null_resource" "user_data_exec" {
   triggers = {
     always_run = timestamp()
   }
+}
+
+output "public_ip" {
+  value = aws_instance.example.public_ip
 }
